@@ -1,0 +1,23 @@
+name: Math Utility Repo applying CI       # Name of a bunch of works is required to do whenever someone push their code
+
+on:
+  push:
+    branches: [ "main" ]                  # Whenever someone pushes code to Main
+  pull_request:
+    branches: [ "main" ]
+
+jobs:                                     # Then do this
+  build:
+
+    runs-on: ubuntu-latest                # 1. Pick an American server which is already installed Ubuntu
+
+    steps:                                # 2. To do more on that server
+    - uses: actions/checkout@v3           # 2.1. Push all local code to server
+    - name: Set up JDK 20                 # 2.2. Pick JDK on the server
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven              # 2.3. Prepare to run to build app, also run Unit Test if existed
+      run: mvn -B package --file pom.xml
