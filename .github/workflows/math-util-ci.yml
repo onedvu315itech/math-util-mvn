@@ -1,0 +1,32 @@
+name: Math Utility Repo applying CI       # Name of a bunch of works is required to do whenever someone push their code
+
+on:
+  push:
+    branches: [ "main" ]                  # Whenever someone pushes code to Main
+  pull_request:
+    branches: [ "main" ]
+
+jobs:                                     # Then do this
+  build:
+
+    runs-on: ubuntu-latest                # 1. Pick an American server which is already installed Ubuntu
+
+    steps:                                # 2. To do more on that server
+    - uses: actions/checkout@v3           # 2.1. Push all local code to server
+    - name: Set up JDK 20                 # 2.2. Pick JDK on the server
+      uses: actions/setup-java@v3
+      with:
+        java-version: '20'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven              # 2.3. Prepare to run to build app, also run Unit Test if existed
+      run: mvn -B package --file pom.xml
+
+    - name: Distribute jar-war file # Gửi file .jar .war đi đâu, CD nhảy vào ...
+      run: mkdir staging && cp target/*.jar staging # tạo thư mục staging chứa file .jar .war sau khi build      
+     
+    - name: Make hyperlink to jar-war file # Tạo hyperlink để download build 
+      uses: actions/upload-artifact@v1
+      with:
+        name: Download jar here # Bản build .jar/.war được nén ở link kế bên
+        path: staging
