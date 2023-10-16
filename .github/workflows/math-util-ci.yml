@@ -16,7 +16,7 @@ jobs:                                     # Then do this
     - name: Set up JDK 20                 # 2.2. Pick JDK on the server
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
+        java-version: '20'
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven              # 2.3. Prepare to run to build app, also run Unit Test if existed
