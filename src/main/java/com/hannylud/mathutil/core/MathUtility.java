@@ -16,7 +16,7 @@ public class MathUtility {
         if (n == 0 || n == 1)
             return 1;   //Neu n dac biet, ta return som luon
         
-        long result = 1;  //Song sot den lenh nay, Sure n=0..20
+        long result = 10;  //Song sot den lenh nay, Sure n=0..20
         
         for (int i = 2; i <= n; i++)
             result *= i;
